@@ -1,21 +1,25 @@
 class Solution {
     public int solution(String[][] board, int h, int w) {
-        int answer = 0;
-        int n = board.length;
+        // [][][][][][][]
+        // [][][][][][][]
+        // [][][][][][][]
+        // 순서대로 위 아래 왼 오
+        int[] dh = {-1, 1, 0, 0};
+        int[] dw = {0, 0, -1, 1};
         int count = 0;
-        int[] dh = {0, 1, -1, 0};
-        int[] dw = {1, 0, 0, -1};
-        
-        for(int i = 0; i <= 3; i++){
-            int h_check = h + dh[i];
-            int w_check = w + dw[i];
+        // 위 아래 왼 오 방향에 대해서 순회하며 색깔을 검사해야 함 즉, 4번 (0 ~ 3) 순회
+        for(int i = 0; i < 4; i++){
+            int check_h = h + dh[i];
+            int check_w = w + dw[i];
             
-            if((h_check >= 0 && h_check < n) && (w_check >= 0 && w_check < n)){
-                if(board[h][w].equals(board[h_check][w_check])){
+            // board의 인덱스 범위에서 벗어나는지 췍.
+            if((check_h < board.length && check_h >= 0) && (check_w < board[check_h].length && check_w >= 0)){
+                if(board[h][w].equals(board[check_h][check_w])){
                     count++;
                 }
             }
         }
+        
         return count;
     }
 }
